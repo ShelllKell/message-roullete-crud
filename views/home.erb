@@ -1,3 +1,5 @@
+<!--Home Message Form-->
+
 <form method="post" action="/messages">
   <label for="message">Message:</label>
   <textarea type="text" col="40" row="5" id="message" name="message"></textarea><br>
@@ -8,5 +10,16 @@
 
   <li><%= message["message"] %></li>
 
+  <a href="/messages/<%= message["id"] %>">
+    <input type="submit" class="button" value="Delete" />
+  </a>
+
+  <a href="/messages/edit/:<%= message["id"] %>">Edit</a>
+
+
 <% end %>
+
+
+
+
 

@@ -24,3 +24,24 @@ feature "Messages" do
     expect(page).to have_content("Message must be less than 140 characters.")
   end
 end
+
+# feature "edit" do
+#   scenario "there's a form field with text inside of it" do
+#     visit "/messages/edit/:id"
+#
+#     expect(page).to have_content("Edit Message")
+#
+#     fill_in "Message", :with => "Hey Everyone"
+#     e
+
+
+
+
+
+
+  end
+end
+
+
+
+

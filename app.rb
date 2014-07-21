@@ -28,4 +28,32 @@ class App < Sinatra::Application
     redirect "/"
   end
 
+  get "/messages/edit/:message" do
+    message_id = params[:message]
+    message_id[0] = ""
+    message_array = @database_connection.sql("SELECT message FROM messages where id = #{message_id}")
+    message = message_array[0]["message"]
+    erb :edit_message, :locals => {:message => message}
+  end
+
+
+  patch "/messages/:id" do
+
+    redirect "/messages"
+  end
+
+
+  get "/messages/:id" do
+
+  end
+
+
+  delete "/messages/:id" do
+    message_id = params[:message]["id"]
+    @database_connection.sql("DELETE * FROM messages where message = #{message_id}")
+    redirect "/"
+  end
+
+
+
 end
