@@ -14,7 +14,10 @@ class App < Sinatra::Application
 
   get "/" do
     messages = @database_connection.sql("SELECT * FROM messages")
-    erb :home, locals: {messages: messages}
+    comments = @database_connection.sql("SELECT * FROM comments")
+    p comments
+    p messages
+    erb :home, :locals => {:messages => messages, :comments => comments}
   end
 
   get "/messages/:id/edit" do
@@ -23,12 +26,15 @@ class App < Sinatra::Application
     erb :edit, :locals => {:message => message}
   end
 
-  get "/messages/:id/comment" do
+  get "/messages/:id/comments/new" do
     message = @database_connection.sql("SELECT * FROM messages WHERE id = #{params[:id]}").first
     erb :comment, :locals => {:message => message}
   end
 
-
+  get "/messages/:id" do
+    message = @database_connection.sql("SELECT * ")
+    erb :home
+  end
 
   post "/messages" do
     message = params[:message]
@@ -39,6 +45,13 @@ class App < Sinatra::Application
     end
     redirect "/"
   end
+
+
+  post "/messages/:id/comments" do
+    @database_connection.sql("INSERT INTO comments (comment, message_id) VALUES ('#{params[:comment]}', #{params[:id]})")
+    redirect "/"
+  end
+
 
   patch "/messages/:id" do
     messages = params[:message]
@@ -52,9 +65,9 @@ class App < Sinatra::Application
   end
 
   delete "/messages/:id" do
-
      @database_connection.sql("DELETE FROM messages where id = #{params[:id]}")
     redirect "/"
   end
+
 
 end
