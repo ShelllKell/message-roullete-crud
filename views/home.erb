@@ -8,14 +8,11 @@
 
 
 <% messages.each do |message_hash| %>
-  <li><a href="<%= message_hash["message"] %>"><%= message_hash["message"] %></a></li>
+  <div><a href="/messages/<%= message_hash["id"] %>"></div>
+  <div><%= message_hash["message"] %></a></div>
   <a href="/messages/<%= message_hash["id"] %>/edit">Edit</a>
   <a href="/messages/<%= message_hash["id"] %>/comments/new">Comment</a>
 
-  <% comments.select do |comment_hash| %>
-    <%if comment_hash["message_id"] == message_hash["id"] %>
-      <br>
-    <%= comment_hash["comment"] %>
 
   <form method="post" action="/messages/<%= message_hash["id"] %>">
     <input type="hidden" name="_method" value="delete"/>
@@ -23,7 +20,12 @@
 
   </form>
 
-<% end %>
-<%end %>
+  <% comments.select do |comment_hash| %>
+    <% if comment_hash["message_id"] == message_hash["id"] %>
+      <%= comment_hash["comment"] %>
+      <br>
+      <br>
+    <% end %>
+  <% end %>
 <% end %>
 

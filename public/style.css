@@ -1,3 +1,7 @@
+html {
+    font-family: Comic Sans MS;
+}
+
 body {
     text-align: center;
 }
@@ -6,4 +10,3 @@ body {
     width: 200px;
     height: 50px;
 }
-
