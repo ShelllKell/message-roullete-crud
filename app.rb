@@ -14,9 +14,21 @@ class App < Sinatra::Application
 
   get "/" do
     messages = @database_connection.sql("SELECT * FROM messages")
-
     erb :home, locals: {messages: messages}
   end
+
+  get "/messages/:id/edit" do
+    message = @database_connection.sql("SELECT * FROM messages WHERE id = #{params[:id]}").first
+
+    erb :edit, :locals => {:message => message}
+  end
+
+  get "/messages/:id/comment" do
+    message = @database_connection.sql("SELECT * FROM messages WHERE id = #{params[:id]}").first
+    erb :comment, :locals => {:message => message}
+  end
+
+
 
   post "/messages" do
     message = params[:message]
@@ -28,32 +40,21 @@ class App < Sinatra::Application
     redirect "/"
   end
 
-  get "/messages/edit/:message" do
-    message_id = params[:message]
-    message_id[0] = ""
-    message_array = @database_connection.sql("SELECT message FROM messages where id = #{message_id}")
-    message = message_array[0]["message"]
-    erb :edit_message, :locals => {:message => message}
-  end
-
-
   patch "/messages/:id" do
-
-    redirect "/messages"
-  end
-
-
-  get "/messages/:id" do
-
-  end
-
-
-  delete "/messages/:id" do
-    message_id = params[:message]["id"]
-    @database_connection.sql("DELETE * FROM messages where message = #{message_id}")
+    messages = params[:message]
+    if messages.length <= 140
+      @database_connection.sql("UPDATE messages SET message = '#{params[:message]}' WHERE id = #{params[:id]}")
+    else
+      flash[:error] = "Message must be less than 140 characters."
+      redirect back
+    end
     redirect "/"
   end
 
+  delete "/messages/:id" do
 
+     @database_connection.sql("DELETE FROM messages where id = #{params[:id]}")
+    redirect "/"
+  end
 
 end
