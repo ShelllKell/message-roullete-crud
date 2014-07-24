@@ -29,3 +29,21 @@ body {
 .commentbox {
     background-image: url('http://thumbs.dreamstime.com/x/golden-glitter-sparkles-dust-background-6725658.jpg');
 }
+
+
+form {
+    display: inline-block;
+}
+
+
+/*.buttonL {*/
+    /*width: 50px;*/
+    /*height: 20px;*/
+    /*float: right;*/
+/*}*/
+
+/*.buttonU {*/
+    /*width: 50px;*/
+    /*height: 20px;*/
+    /*float: right;*/
+/*}*/

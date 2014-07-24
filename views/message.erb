@@ -1,9 +1,10 @@
 
 
-<h2><div><%= messages["message"] %></div></h2>
+<h3><div><%= messages["message"] %></div></h3>
 
-<div><%= comments["comment"] %></div>
-
+<div><% if comments != nil %>
+     <%= comments["comment"] %></div>
+   <% end %>
 <br>
 <br>
 

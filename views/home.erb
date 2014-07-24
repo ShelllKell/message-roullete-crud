@@ -19,12 +19,33 @@
   <a href="/messages/<%= message_hash["id"] %>/edit">Edit</a>
   <a href="/messages/<%= message_hash["id"] %>/comments/new">Comment</a>
 
+  <br>
+
+  <%= message_hash["likes"] %> <%= "likes" %>
+
+  <br>
+
+  <form method="post" action="/likes/<%= message_hash["id"] %>">
+    <input type="hidden" name = "_method" value="patch" />
+    <button class="buttonL">Like</button>
+  </form>
+
+  <form method="post" action="/unlike/<%= message_hash["id"] %>">
+    <input type="hidden" name = "_method" value="patch" />
+    <button class="buttonU">Unlike</button>
+  </form>
+
+
 
   <form method="post" action="/messages/<%= message_hash["id"] %>">
     <input type="hidden" name="_method" value="delete"/>
     <input type="submit" value="Delete Message"/>
 
   </form>
+
+
+
+  <br>
 
   <% comments.select do |comment_hash| %>
     <% if comment_hash["message_id"] == message_hash["id"] %>

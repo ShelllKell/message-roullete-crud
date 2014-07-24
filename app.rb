@@ -52,6 +52,15 @@ class App < Sinatra::Application
     redirect "/"
   end
 
+  patch "/likes/:id" do
+    @database_connection.sql("UPDATE messages SET likes = (likes + 1)  WHERE id = #{params[:id]}")
+    redirect "/"
+  end
+
+  patch "/unlike/:id" do
+    @database_connection.sql("UPDATE messages SET likes = (likes - 1)  WHERE id = #{params[:id]}")
+    redirect "/"
+  end
 
   patch "/messages/:id" do
     messages = params[:message].gsub(/'/, "''")

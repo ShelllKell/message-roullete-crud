@@ -2,6 +2,7 @@ class CreateMessageTable < ActiveRecord::Migration
   def up
     create_table :messages do |t|
       t.string  :message
+
     end
   end
 
